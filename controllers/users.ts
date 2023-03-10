@@ -1,46 +1,75 @@
 import { Request, Response } from 'express';
+import bcryptjs from 'bcryptjs';
 
-export const getUsers = (req:Request, res:Response) => {
+import User from '../models/user';
 
-  const quey = req.query;
+export const getUsers = async (req:Request, res:Response) => {
+  
+  const { limit = 5, from = 0 } = req.query;
+  const query = { state: true };
+
+  const [total, users] = await Promise.all([
+    User.countDocuments(query),
+    User.find(query)
+      .skip(+from)
+      .limit( +limit )
+  ]);
 
   res.json({
-    msg: 'get API - controllers - controllers',
-    ...quey
-  });
+      total,
+      users
+    });
+};
+
+
+export const postUsers = async (req:Request, res:Response) => {
+
+  const { name, email, password, role }= req.body;
+  const user = new User({ name, email, password, role });
+   
+  //Encriptar la contraseña
+  const salt = bcryptjs.genSaltSync();
+  user.password = bcryptjs.hashSync(password, salt);
+
+  //Guardar en BD
+  await user.save();
+
+  res.status(201).json(user);
+};
+
+
+export const putUsers = async (req:Request, res:Response) => {
+
+  const { id }= req.params;
+  const { _id, password, google, email, ...rest } = req.body;
+
+  if (password){
+    //Encriptar la contraseña
+    const salt = bcryptjs.genSaltSync();
+    rest.password = bcryptjs.hashSync(password, salt);
+  }
+
+  const user = await User.findByIdAndUpdate(id, rest, { new: true });
+  res.status(200).json(user);
 }
 
-export const putUsers = (req:Request, res:Response) => {
 
-  const id = req.params.id;
+export const deleteUSers = async (req:Request, res:Response) => {
+  const { id } = req.params;
+
+  const user = await User.findByIdAndUpdate(id, { state: false });
+
+  if ( user?.state === false ){
+    return res.status(400).json({
+      msg: 'No existe un usuario con ese ID'
+    })
+  }
 
   res.json({
-    msg: 'put API - controllers',
-    id
+    msg: 'Usuario eliminado correctamente',
+    user
   });
 }
 
-export const postUsers = (req:Request, res:Response) => {
-
-  const body = req.body;
-  const { name, email } = req.body;
-
-  res.status(201).json({
-    msg: 'post API - controllers',
-    name,
-    email,
-    data: {...body}
-  });
-}
-
-export const deleteUSers = (req:Request, res:Response) => {
-  res.json({
-    msg: 'delete API - controllers'
-  });
-}
-
-export const patchUsers = (req:Request, res:Response) => {
-  res.json({
-    msg: 'patch API - controllers'
-  });
-}
+// Borrar fisicamente
+//const user = await User.findByIdAndDelete(id);
