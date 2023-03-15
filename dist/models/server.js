@@ -14,12 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const users_1 = __importDefault(require("../routes/users"));
 const config_1 = __importDefault(require("../db/config"));
+const auth_1 = __importDefault(require("../routes/auth"));
+const users_1 = __importDefault(require("../routes/users"));
 class Server {
     constructor() {
-        this.apiPaths = {
-            users: '/api/users'
+        this.paths = {
+            users: '/api/users',
+            auth: '/api/auth'
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8080';
@@ -44,7 +46,8 @@ class Server {
         this.app.use(express_1.default.static('public'));
     }
     routes() {
-        this.app.use(this.apiPaths.users, users_1.default);
+        this.app.use(this.paths.auth, auth_1.default);
+        this.app.use(this.paths.users, users_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

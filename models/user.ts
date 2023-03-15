@@ -22,7 +22,8 @@ const userSchema = new Schema<User>({
 
 //retorna el usuario sin los parametros { __v, password } 
 userSchema.methods.toJSON = function() {
-  const { __v, password, ...user } = this.toObject();
+  const { __v, password, _id, ...user } = this.toObject();
+  user.uid = _id;
   return user;
 }
 

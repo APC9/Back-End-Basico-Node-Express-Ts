@@ -56,17 +56,15 @@ export const putUsers = async (req:Request, res:Response) => {
 
 export const deleteUSers = async (req:Request, res:Response) => {
   const { id } = req.params;
-
   const user = await User.findByIdAndUpdate(id, { state: false });
 
   if ( user?.state === false ){
     return res.status(400).json({
       msg: 'No existe un usuario con ese ID'
-    })
-  }
+    });
+  };
 
   res.json({
-    msg: 'Usuario eliminado correctamente',
     user
   });
 }

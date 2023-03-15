@@ -72,8 +72,8 @@ const deleteUSers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             msg: 'No existe un usuario con ese ID'
         });
     }
+    ;
     res.json({
-        msg: 'Usuario eliminado correctamente',
         user
     });
 });
