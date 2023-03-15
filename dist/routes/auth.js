@@ -10,5 +10,9 @@ routerAuth.post('/login', [
     (0, express_validator_1.check)('password', 'La contraseña es obligatoria').not().isEmpty(),
     middlewares_1.validarCampos
 ], login_1.login);
+routerAuth.post('/google', [
+    (0, express_validator_1.check)('id_token', 'Id-token es necesario').not().isEmpty(),
+    middlewares_1.validarCampos
+], login_1.googleSignIn);
 exports.default = routerAuth;
 //# sourceMappingURL=auth.js.map
