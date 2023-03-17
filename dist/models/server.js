@@ -14,14 +14,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
+const swagger_1 = __importDefault(require("../docs/swagger"));
 const config_1 = __importDefault(require("../db/config"));
-const auth_1 = __importDefault(require("../routes/auth"));
-const users_1 = __importDefault(require("../routes/users"));
+const routes_1 = require("../routes");
+const products_1 = require("../routes/products");
 class Server {
     constructor() {
         this.paths = {
-            users: '/api/users',
-            auth: '/api/auth'
+            auth: '/api/auth',
+            categories: '/api/categories',
+            documentation: '/documentation',
+            products: '/api/products',
+            users: '/api/users'
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8080';
@@ -46,8 +51,11 @@ class Server {
         this.app.use(express_1.default.static('public'));
     }
     routes() {
-        this.app.use(this.paths.auth, auth_1.default);
-        this.app.use(this.paths.users, users_1.default);
+        this.app.use(this.paths.auth, routes_1.routerAuth);
+        this.app.use(this.paths.categories, routes_1.routerCategories);
+        this.app.use(this.paths.documentation, swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
+        this.app.use(this.paths.products, products_1.routerProducts);
+        this.app.use(this.paths.users, routes_1.routerUser);
     }
     listen() {
         this.app.listen(this.port, () => {

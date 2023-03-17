@@ -64,7 +64,6 @@ export const googleSignIn = async (req:Request, res:Response) => {
       const data = {
         name,
         email,
-        role: 'USER_ROLE',
         picture,
         password: 'XD',
         google: true 

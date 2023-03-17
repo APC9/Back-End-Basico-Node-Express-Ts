@@ -1,3 +1,5 @@
+import Category from '../models/category';
+import Product from '../models/product';
 import Role from '../models/role';
 import User from '../models/user';
 
@@ -19,5 +21,19 @@ export const existsUserById = async ( id:string ) => {
   const existsUser = await User.findById(id);
   if ( !existsUser ) {
     throw new Error (`El usuario con el id: ${id} no existe en la BD`);
+  };
+};
+
+export const existsCateryById = async ( id:string ) => {
+  const existsCategory = await Category.findById(id);
+  if ( !existsCategory ) {
+    throw new Error (`La Categoria con el id: ${id} no existe en la BD`);
+  };
+};
+
+export const existsProductById = async ( id:string ) => {
+  const existsProduct = await Product.findById(id);
+  if ( !existsProduct ) {
+    throw new Error (`El producto con el id: ${id} no existe en la BD`);
   };
 };

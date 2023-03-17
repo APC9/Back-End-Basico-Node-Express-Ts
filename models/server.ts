@@ -1,16 +1,23 @@
 import express, {Application} from 'express';
 import cors from 'cors';
 
+import swaggerUi from 'swagger-ui-express';
+import swaggerSetup from "../docs/swagger";
+
 import dbConection from '../db/config';
-import routerAuth from '../routes/auth';
-import routerUser from '../routes/users';
+import { routerAuth, routerUser, routerCategories } from '../routes';
+import { routerProducts } from '../routes/products';
+
 
 class Server{
   private app: Application;
   private port: string;
   private paths = {
-    users: '/api/users',
-    auth: '/api/auth'
+    auth: '/api/auth',
+    categories: '/api/categories',
+    documentation: '/documentation',
+    products: '/api/products',
+    users: '/api/users'
   };
 
   constructor(){
@@ -44,6 +51,9 @@ class Server{
   
   routes(){
     this.app.use( this.paths.auth, routerAuth );
+    this.app.use( this.paths.categories, routerCategories );
+    this.app.use( this.paths.documentation, swaggerUi.serve, swaggerUi.setup(swaggerSetup));
+    this.app.use( this.paths.products, routerProducts );
     this.app.use( this.paths.users, routerUser );
   }
   

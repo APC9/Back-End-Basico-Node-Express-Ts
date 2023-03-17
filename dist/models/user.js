@@ -17,7 +17,7 @@ const userSchema = new mongoose_1.Schema({
     email: { type: String, required: [true, 'El correo es requerido'] },
     password: { type: String, required: [true, 'La contraseña es requerida'] },
     img: { type: String },
-    role: { type: String, required: true, },
+    role: { type: String, default: 'USER_ROLE', required: true },
     state: { type: Boolean, default: true },
     google: { type: Boolean, default: false }
 });

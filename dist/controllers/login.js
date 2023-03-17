@@ -65,7 +65,6 @@ const googleSignIn = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             const data = {
                 name,
                 email,
-                role: 'USER_ROLE',
                 picture,
                 password: 'XD',
                 google: true
