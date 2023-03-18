@@ -31,6 +31,26 @@ const swaggerDefinition: OAS3Definition = {
           type: "integer"
         }, 
       },
+      collectionsParam:{
+        name: "collections",
+        in: "path",
+        description: "Colecciones de la BD",
+        example: 'user, product, category',
+        required: true,
+        schema:{
+          type: "string"
+        }, 
+      },
+      termParam:{
+        name: "term",
+        in: "path",
+        description: "termino de la busqueda",
+        example: 'user@email',
+        required: true,
+        schema:{
+          type: "string"
+        }, 
+      },
       tokeParam:{
         name: "x-token",
         in: "header",
@@ -154,18 +174,6 @@ const swaggerDefinition: OAS3Definition = {
           available: {
             type: "boolean",
           },
-        },
-      },
-      loginUser: {
-        type: "object",
-        required: ["email", "password"],
-        properties: {
-          email: {
-            type: "string",
-          },
-          password: {
-            type: "string",
-          }
         },
       },
       role: {

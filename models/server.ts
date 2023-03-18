@@ -5,7 +5,7 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerSetup from "../docs/swagger";
 
 import dbConection from '../db/config';
-import { routerAuth, routerUser, routerCategories } from '../routes';
+import { routerAuth, routerUser, routerCategories, routerSearch } from '../routes';
 import { routerProducts } from '../routes/products';
 
 
@@ -17,6 +17,7 @@ class Server{
     categories: '/api/categories',
     documentation: '/documentation',
     products: '/api/products',
+    search: '/api/search',
     users: '/api/users'
   };
 
@@ -54,6 +55,7 @@ class Server{
     this.app.use( this.paths.categories, routerCategories );
     this.app.use( this.paths.documentation, swaggerUi.serve, swaggerUi.setup(swaggerSetup));
     this.app.use( this.paths.products, routerProducts );
+    this.app.use( this.paths.search, routerSearch );
     this.app.use( this.paths.users, routerUser );
   }
   

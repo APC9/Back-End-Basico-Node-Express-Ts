@@ -19,7 +19,11 @@ export const routerAuth: Router = Router();
  *          content:
  *            application/json:
  *              schema:
- *                $ref: "#/components/schemas/loginUser"
+ *                  properties:
+ *                    email:
+ *                      type: string
+ *                    password:
+ *                      type: string
  *      responses:
  *        '201':
  *          description: Retorna el objeto del usuario logueado y el JWT.
@@ -55,7 +59,6 @@ routerAuth.post('/google',[
   ],
   googleSignIn
 );
-
 
 
 //export default routerAuth;

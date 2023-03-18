@@ -26,6 +26,7 @@ class Server {
             categories: '/api/categories',
             documentation: '/documentation',
             products: '/api/products',
+            search: '/api/search',
             users: '/api/users'
         };
         this.app = (0, express_1.default)();
@@ -55,6 +56,7 @@ class Server {
         this.app.use(this.paths.categories, routes_1.routerCategories);
         this.app.use(this.paths.documentation, swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
         this.app.use(this.paths.products, products_1.routerProducts);
+        this.app.use(this.paths.search, routes_1.routerSearch);
         this.app.use(this.paths.users, routes_1.routerUser);
     }
     listen() {

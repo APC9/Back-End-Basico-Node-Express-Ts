@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { check } from 'express-validator';
 
 import { getUsers, putUsers, postUsers, deleteUSers } from '../controllers/users';
-import { existsEmail, isValidRole, existsUserById } from '../helpers/db-validators';
+import { existsEmail, isValidRole, existsUserById } from '../helpers';
 import { validarCampos, validarJWT, hasRole } from '../middlewares';
 
 
@@ -38,11 +38,6 @@ routerUser.get('/', getUsers);
  *      operationId: 
  *      parameters:
  *       - $ref: "#/components/parameters/idParam"
- *      requestBody:
- *          content:
- *            application/json:
- *              schema:
- *                $ref: "#/components/schemas/user"
  *      responses:
  *        '200':
  *          description: Retorna el objeto editado en la coleccion.

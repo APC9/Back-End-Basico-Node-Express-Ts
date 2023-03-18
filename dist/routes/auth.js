@@ -19,7 +19,11 @@ exports.routerAuth = (0, express_1.Router)();
  *          content:
  *            application/json:
  *              schema:
- *                $ref: "#/components/schemas/loginUser"
+ *                  properties:
+ *                    email:
+ *                      type: string
+ *                    password:
+ *                      type: string
  *      responses:
  *        '201':
  *          description: Retorna el objeto del usuario logueado y el JWT.
