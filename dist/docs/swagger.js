@@ -24,6 +24,14 @@ const swaggerDefinition = {
             },
         },
         parameters: {
+            uploadFileParam: {
+                name: "file",
+                in: "query",
+                required: true,
+                description: "Subir un Archivo",
+                type: "string",
+                format: "binary"
+            },
             limitParam: {
                 name: "limit",
                 in: "query",
@@ -177,6 +185,9 @@ const swaggerDefinition = {
                     },
                     available: {
                         type: "boolean",
+                    },
+                    img: {
+                        type: "string",
                     },
                 },
             },

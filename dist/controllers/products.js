@@ -32,7 +32,7 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         product_1.default.countDocuments(query),
         product_1.default.find(query).limit(+limit).populate('user', 'name').populate('category', 'name')
     ]);
-    res.json({
+    return res.json({
         total,
         product
     });
@@ -44,11 +44,11 @@ const getProductsById = (req, res) => __awaiter(void 0, void 0, void 0, function
     const product = yield product_1.default.findById(id).find(query)
         .populate('user', 'name').populate('category', 'name');
     if (product.length === 0) {
-        res.json({
+        return res.json({
             msg: 'No hay Productos con el ID:' + id
         });
     }
-    res.json({
+    return res.json({
         product
     });
 });
@@ -58,7 +58,7 @@ const postProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const _b = req.body, { state, user } = _b, body = __rest(_b, ["state", "user"]);
     const productDB = yield product_1.default.findOne({ name: body.name.toUpperCase() });
     if (productDB) {
-        res.status(400).json({
+        return res.status(400).json({
             msg: `La categoria ${body.name} ya existe en la BD`
         });
     }
@@ -67,7 +67,7 @@ const postProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const product = new product_1.default(data);
     //Guardar en DB
     yield product.save();
-    res.status(201).json(product);
+    return res.status(201).json(product);
 });
 exports.postProducts = postProducts;
 const putProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -89,7 +89,7 @@ const putProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     product = yield product_1.default.findByIdAndUpdate(id, data, { new: true }).populate('user', 'name')
         .populate('category', 'name');
-    res.status(202).json({
+    return res.status(202).json({
         product
     });
 });
@@ -103,7 +103,7 @@ const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     ;
-    res.json({
+    return res.json({
         product
     });
 });

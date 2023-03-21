@@ -20,6 +20,14 @@ const swaggerDefinition: OAS3Definition = {
       },
     },
     parameters:{
+      uploadFileParam:{
+        name: "file",
+        in: "query",
+        required: true,
+        description: "Subir un Archivo",
+        type: "string",
+        format: "binary"
+      },
       limitParam:{
         name: "limit",
         in: "query",
@@ -173,6 +181,9 @@ const swaggerDefinition: OAS3Definition = {
           },
           available: {
             type: "boolean",
+          },
+          img: {
+            type: "string",
           },
         },
       },

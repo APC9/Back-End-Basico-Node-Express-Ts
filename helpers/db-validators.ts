@@ -37,3 +37,4 @@ export const existsProductById = async ( id:string ) => {
     throw new Error (`El producto con el id: ${id} no existe en la BD`);
   };
 };
+

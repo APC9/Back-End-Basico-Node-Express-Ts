@@ -11,7 +11,7 @@ export const getProducts = async (req:Request, res:Response) => {
     Product.find(query).limit(+limit).populate('user','name').populate('category', 'name')
   ]);
 
-  res.json({
+  return res.json({
     total,
     product
   });
@@ -24,12 +24,12 @@ export const getProductsById = async (req:Request, res:Response) => {
                                 .populate('user','name').populate('category','name');
   
   if ( product.length === 0 ){
-    res.json({
+    return res.json({
       msg: 'No hay Productos con el ID:'+ id
     });
   }
 
-  res.json({
+  return res.json({
     product
   });
 }
@@ -40,7 +40,7 @@ export const postProducts = async (req:Request, res:Response) => {
 
   const productDB = await Product.findOne({name:body.name.toUpperCase()});
   if( productDB ){
-    res.status(400).json({
+    return res.status(400).json({
       msg: `La categoria ${body.name} ya existe en la BD`
     })
   }
@@ -56,7 +56,7 @@ export const postProducts = async (req:Request, res:Response) => {
   //Guardar en DB
   await product.save()
 
-  res.status(201).json(product);
+  return res.status(201).json(product);
 }
 
 export const putProducts = async (req:Request, res:Response) => {
@@ -84,7 +84,7 @@ export const putProducts = async (req:Request, res:Response) => {
   product = await Product.findByIdAndUpdate(id, data, {new: true}).populate('user','name')
                           .populate('category','name');
 
-  res.status(202).json({
+  return res.status(202).json({
     product
   });
 
@@ -100,7 +100,7 @@ export const deleteProduct = async (req:Request, res:Response) => {
     });
   };
 
-  res.json({
+  return res.json({
     product
   });
 }

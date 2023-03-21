@@ -19,7 +19,8 @@ const productSchema = new mongoose_1.Schema({
     price: { type: Number, default: 0 },
     category: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Category', required: true },
     description: { type: String },
-    available: { type: Boolean, default: true }
+    available: { type: Boolean, default: true },
+    img: { type: String }
 });
 productSchema.methods.toJSON = function () {
     const _a = this.toObject(), { __v, _id } = _a, rest = __rest(_a, ["__v", "_id"]);

@@ -10,7 +10,7 @@ export const getCategories = async (req:Request, res:Response) => {
     Category.find(query).limit(+limit).populate('user','name')
   ]);
 
-  res.json({
+  return res.json({
     total,
     categories
   });
@@ -21,7 +21,7 @@ export const getCategoriesById = async (req:Request, res:Response) => {
   const query = { state: true };
   const category = await Category.findById(id).find(query).populate('user','name');
 
-  res.json({
+  return res.json({
     category
   });
 }
@@ -32,7 +32,7 @@ export const postCategories = async (req:Request, res:Response) => {
   const categoryDB = await Category.findOne({name})
 
   if( categoryDB ){
-    res.status(400).json({
+    return res.status(400).json({
       msg: `La categoria ${ categoryDB.name } ya existe en la BD`
     })
   }
@@ -47,7 +47,7 @@ export const postCategories = async (req:Request, res:Response) => {
   //Guardar en DB
   await category.save()
 
-  res.status(201).json(category);
+  return res.status(201).json(category);
 }
 
 export const putCategories = async (req:Request, res:Response) => {
@@ -74,7 +74,7 @@ export const putCategories = async (req:Request, res:Response) => {
 
   category = await Category.findByIdAndUpdate(id, data, {new: true}).populate('user','name');
 
-  res.status(202).json({
+  return res.status(202).json({
     category
   });
 }
@@ -89,7 +89,7 @@ export const deleteCategories = async (req:Request, res:Response) => {
     });
   };
 
-  res.json({
+  return res.json({
     category
   });
 }

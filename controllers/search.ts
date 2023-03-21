@@ -35,7 +35,7 @@ export const search =  (req: Request, res: Response) => {
     break;
 
     default:
-      res.status(500).json({
+      return res.status(500).json({
         msg: 'Busqueda omitida, informar al administrador de BD'
       })
   } 

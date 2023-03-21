@@ -14,6 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+__exportStar(require("./validar-archivo"), exports);
 __exportStar(require("./validar-role"), exports);
 __exportStar(require("./validar-jwt"), exports);
 __exportStar(require("./validar-campos"), exports);

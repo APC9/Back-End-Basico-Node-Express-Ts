@@ -42,7 +42,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         //Generar JWT
         const token = yield (0, generarJWT_1.default)(user.id);
-        res.json({
+        return res.json({
             user,
             token
         });
@@ -80,14 +80,14 @@ const googleSignIn = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         }
         //Generear el JWT
         const token = yield (0, generarJWT_1.default)(user.id);
-        res.json({
+        return res.json({
             user,
             token
         });
     }
     catch (error) {
         console.log(error);
-        res.status(400).json({
+        return res.status(400).json({
             ok: false,
             msg: 'El token no se pudo verificar'
         });

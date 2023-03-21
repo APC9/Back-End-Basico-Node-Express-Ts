@@ -20,4 +20,5 @@ __exportStar(require("./google-verify"), exports);
 __exportStar(require("./searchCategory"), exports);
 __exportStar(require("./searchProduct"), exports);
 __exportStar(require("./searchUser"), exports);
+__exportStar(require("./validar-fileUpload"), exports);
 //# sourceMappingURL=index.js.map

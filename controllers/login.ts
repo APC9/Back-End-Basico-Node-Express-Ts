@@ -37,7 +37,7 @@ export const login = async (req:Request, res:Response) => {
     //Generar JWT
     const token = await generarJWT( user.id )
 
-    res.json({
+    return res.json({
       user,
       token
     })
@@ -83,14 +83,14 @@ export const googleSignIn = async (req:Request, res:Response) => {
     //Generear el JWT
     const token = await generarJWT( user.id )
     
-    res.json({
+    return res.json({
       user,
       token
     })
 
   } catch (error) {
     console.log(error);
-    res.status(400).json({
+    return res.status(400).json({
       ok: false,
       msg: 'El token no se pudo verificar'
     })

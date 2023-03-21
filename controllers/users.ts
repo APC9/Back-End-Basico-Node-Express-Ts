@@ -34,7 +34,7 @@ export const postUsers = async (req:Request, res:Response) => {
   //Guardar en BD
   await user.save();
 
-  res.status(201).json(user);
+  return res.status(201).json(user);
 };
 
 
@@ -50,7 +50,7 @@ export const putUsers = async (req:Request, res:Response) => {
   }
 
   const user = await User.findByIdAndUpdate(id, rest, { new: true });
-  res.status(200).json(user);
+  return res.status(200).json(user);
 }
 
 
@@ -64,7 +64,7 @@ export const deleteUSers = async (req:Request, res:Response) => {
     });
   };
 
-  res.json({
+  return res.json({
     user
   });
 }

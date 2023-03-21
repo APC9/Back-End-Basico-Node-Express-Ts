@@ -26,7 +26,7 @@ const search = (req, res) => {
             (0, helpers_1.searchUser)(term, res);
             break;
         default:
-            res.status(500).json({
+            return res.status(500).json({
                 msg: 'Busqueda omitida, informar al administrador de BD'
             });
     }

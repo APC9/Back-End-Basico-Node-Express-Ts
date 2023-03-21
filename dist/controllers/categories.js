@@ -32,7 +32,7 @@ const getCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         category_1.default.countDocuments(query),
         category_1.default.find(query).limit(+limit).populate('user', 'name')
     ]);
-    res.json({
+    return res.json({
         total,
         categories
     });
@@ -42,7 +42,7 @@ const getCategoriesById = (req, res) => __awaiter(void 0, void 0, void 0, functi
     const { id } = req.params;
     const query = { state: true };
     const category = yield category_1.default.findById(id).find(query).populate('user', 'name');
-    res.json({
+    return res.json({
         category
     });
 });
@@ -52,7 +52,7 @@ const postCategories = (req, res) => __awaiter(void 0, void 0, void 0, function*
     const name = req.body.name.toUpperCase();
     const categoryDB = yield category_1.default.findOne({ name });
     if (categoryDB) {
-        res.status(400).json({
+        return res.status(400).json({
             msg: `La categoria ${categoryDB.name} ya existe en la BD`
         });
     }
@@ -64,7 +64,7 @@ const postCategories = (req, res) => __awaiter(void 0, void 0, void 0, function*
     const category = new category_1.default(data);
     //Guardar en DB
     yield category.save();
-    res.status(201).json(category);
+    return res.status(201).json(category);
 });
 exports.postCategories = postCategories;
 const putCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -86,7 +86,7 @@ const putCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     ;
     category = yield category_1.default.findByIdAndUpdate(id, data, { new: true }).populate('user', 'name');
-    res.status(202).json({
+    return res.status(202).json({
         category
     });
 });
@@ -100,7 +100,7 @@ const deleteCategories = (req, res) => __awaiter(void 0, void 0, void 0, functio
         });
     }
     ;
-    res.json({
+    return res.json({
         category
     });
 });

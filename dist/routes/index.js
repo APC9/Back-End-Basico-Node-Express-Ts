@@ -18,4 +18,5 @@ __exportStar(require("./auth"), exports);
 __exportStar(require("./categories"), exports);
 __exportStar(require("./search"), exports);
 __exportStar(require("./users"), exports);
+__exportStar(require("./upLoads"), exports);
 //# sourceMappingURL=index.js.map

@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const cors_1 = __importDefault(require("cors"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_1 = __importDefault(require("../docs/swagger"));
@@ -27,7 +28,8 @@ class Server {
             documentation: '/documentation',
             products: '/api/products',
             search: '/api/search',
-            users: '/api/users'
+            upload: '/api/uploads',
+            users: '/api/users',
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8080';
@@ -50,6 +52,12 @@ class Server {
         this.app.use(express_1.default.json());
         //Directorio publico
         this.app.use(express_1.default.static('public'));
+        //File-Upload: Carga de archivos
+        this.app.use((0, express_fileupload_1.default)({
+            useTempFiles: true,
+            tempFileDir: '/tmp/',
+            createParentPath: true
+        }));
     }
     routes() {
         this.app.use(this.paths.auth, routes_1.routerAuth);
@@ -57,6 +65,7 @@ class Server {
         this.app.use(this.paths.documentation, swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
         this.app.use(this.paths.products, products_1.routerProducts);
         this.app.use(this.paths.search, routes_1.routerSearch);
+        this.app.use(this.paths.upload, routes_1.routerUpload);
         this.app.use(this.paths.users, routes_1.routerUser);
     }
     listen() {

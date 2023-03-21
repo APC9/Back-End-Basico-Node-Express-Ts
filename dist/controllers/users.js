@@ -49,7 +49,7 @@ const postUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     user.password = bcryptjs_1.default.hashSync(password, salt);
     //Guardar en BD
     yield user.save();
-    res.status(201).json(user);
+    return res.status(201).json(user);
 });
 exports.postUsers = postUsers;
 const putUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -61,7 +61,7 @@ const putUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         rest.password = bcryptjs_1.default.hashSync(password, salt);
     }
     const user = yield user_1.default.findByIdAndUpdate(id, rest, { new: true });
-    res.status(200).json(user);
+    return res.status(200).json(user);
 });
 exports.putUsers = putUsers;
 const deleteUSers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -73,7 +73,7 @@ const deleteUSers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         });
     }
     ;
-    res.json({
+    return res.json({
         user
     });
 });

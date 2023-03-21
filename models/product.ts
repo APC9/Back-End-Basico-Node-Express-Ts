@@ -7,7 +7,8 @@ interface Product{
   price: number;
   category: Schema.Types.ObjectId;
   description: string;
-  available: boolean
+  available: boolean,
+  img: string
 }
 
 const productSchema = new Schema<Product>({
@@ -17,7 +18,8 @@ const productSchema = new Schema<Product>({
   price: { type: Number, default: 0},
   category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
   description: { type: String},
-  available: { type: Boolean, default: true }
+  available: { type: Boolean, default: true },
+  img: { type: String}
 });
 
 productSchema.methods.toJSON = function() {

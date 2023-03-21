@@ -1,11 +1,12 @@
 import express, {Application} from 'express';
+import fileUpload from 'express-fileupload';
 import cors from 'cors';
 
 import swaggerUi from 'swagger-ui-express';
 import swaggerSetup from "../docs/swagger";
 
 import dbConection from '../db/config';
-import { routerAuth, routerUser, routerCategories, routerSearch } from '../routes';
+import { routerAuth, routerUser, routerCategories, routerSearch, routerUpload } from '../routes';
 import { routerProducts } from '../routes/products';
 
 
@@ -18,7 +19,8 @@ class Server{
     documentation: '/documentation',
     products: '/api/products',
     search: '/api/search',
-    users: '/api/users'
+    upload: '/api/uploads',
+    users: '/api/users',
   };
 
   constructor(){
@@ -48,6 +50,13 @@ class Server{
 
     //Directorio publico
     this.app.use( express.static('public'));
+
+    //File-Upload: Carga de archivos
+    this.app.use( fileUpload ({ 
+      useTempFiles : true , 
+      tempFileDir : '/tmp/',
+      createParentPath: true
+    }));
   }
   
   routes(){
@@ -56,6 +65,7 @@ class Server{
     this.app.use( this.paths.documentation, swaggerUi.serve, swaggerUi.setup(swaggerSetup));
     this.app.use( this.paths.products, routerProducts );
     this.app.use( this.paths.search, routerSearch );
+    this.app.use( this.paths.upload, routerUpload );
     this.app.use( this.paths.users, routerUser );
   }
   
